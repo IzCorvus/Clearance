@@ -1,0 +1,95 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; /* Prevent scrolling while loading */
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: radial-gradient(rgb(192, 187, 187), rgb(18, 18, 22));
+}
+
+/* Main content style */
+#main-content {
+  display: none; /* Hide initially */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+  height: calc(100vh - 60px); /* Adjust height to account for the navbar */
+  width: calc(100vw - 40px);
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.aside {
+position: fixed;
+top: 100px;
+left: 10px;
+width: 60px;
+background: rgba(255, 255, 255, 0.1);
+backdrop-filter: blur(20px);
+-webkit-backdrop-filter: blur(20px);
+border-right: 1px solid rgba(255, 255, 255, 0.3);
+border-top-right-radius: 16px;
+box-shadow: 4px 0 30px rgba(0, 0, 0, 0.1);
+padding: 20px 10px;
+color: rgb(255, 255, 255);
+border-radius: 16px;
+
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 20px; /* Space between buttons */
+}
+
+/* Aside button style */
+.aside button {
+background: transparent;
+border: none;
+color: rgb(255, 255, 255);
+font-size: 1.5rem;
+cursor: pointer;
+transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.aside button:hover {
+color: rgb(77, 74, 64);
+transform: scale(1.2); /* Slight zoom effect on hover */
+}
+
+
+/* Navbar style */
+.navbar {
+  display: flex;
+  gap: 30px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: transparent; /* Removed background */
+  padding: 10px;
+  z-index: 10000;
+  justify-content: center;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+  color: #4d4a40;
+}

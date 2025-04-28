@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <title>Clearance</title>
+
+  <!-- Static CSS from 2.html -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/uiball.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/landing.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/messages.css' %}">
+</head>
+<body>
+  {% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+          {{ message }}
+          <button class="close-btn" aria-label="Close">&times;</button>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+  {% csrf_token %}
+  <!-- Loading screen (shared) -->
+  <div id="loading-screen">
+    <svg class="container" viewBox="0 0 35 35" aria-label="Loading animation">
+      <rect class="track" x="2.5" y="2.5" fill="none" stroke-width="5px" width="32.5" height="32.5" />
+      <rect class="car" x="2.5" y="2.5" fill="none" stroke-width="5px" width="32.5" height="32.5" pathlength="100" />
+    </svg>
+  </div>
+  <div id="blur-container">
+    <!-- Main content from 2.html (login/register forms) -->
+    <div id="main-content" class="main-content">
+      <div class="hero">
+          <video autoplay muted loop id="myVideo">
+              <source src="{% static 'images/blackground.mp4' %}" type="video/mp4">
+          </video>
+          <a href="#wrapper" class="btnLogin-popup" style="text-decoration:none;">Get Started</a>
+      </div>
+    </div>
+    <!-- The login/register form wrapper is outside of main-content so it can overlay -->
+    <div class="wrapper" id="wrapper">
+    <span class="icon-close"><ion-icon name="close"></ion-icon></span>
+    <div class="form-box login">
+      <h2>Login</h2>
+      <form action="/login/" method="post">
+        <div class="input-box">
+          <span class="icon"><ion-icon name="mail"></ion-icon></span>
+          <input type="text" name="email" required>
+          <label>Email</label>
+        </div>
+        <div class="input-box">
+          <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+          <input type="password" name="password" required>
+          <label>Password</label>
+        </div>
+        <div class="remember-forgot">
+          <label><input type="checkbox">Remember me</label>
+          <a href="#">Forgot Password?</a>
+        </div>
+        {% csrf_token %}
+        <button type="subm" class="btn">Login</button>
+        <div class="login-register">
+          <p>Don't have an account? <a href="#" class="register-link">Register</a></p>
+        </div>
+      </form>
+    </div>
+    <div class="form-box register">
+      <h2>Registration</h2>
+      <form action="/register/" method="post">
+        {% csrf_token %}
+        <div class="input-box">
+          <span class="icon"><ion-icon name="person"></ion-icon></span>
+          <input type="text" name="username" required>
+          <label>Username</label>
+        </div>
+        <div class="input-box">
+          <span class="icon"><ion-icon name="calendar"></ion-icon></span>
+          <input type="date" name="date" required>
+        </div>
+        <div class="input-box">
+          <span class="icon"><ion-icon name="mail"></ion-icon></span>
+          <input type="text" name="email" required>
+          <label>Email</label>
+        </div>
+        <div class="input-box">
+          <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+          <input type="password" name="password" required>
+          <label>Password</label>
+        </div>
+        <div class="login-register">
+          <p>Already have an account? <a href="#" class="login-link">Login</a></p>
+        </div>
+        <div class="login-register">
+          <p>By registering, you agree to our Terms & Conditions</p>
+        </div>
+
+        <button type="submit" class="btn">Register</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts from 2.html -->
+  <script src="{% static 'js/form.js' %}"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <script src="{% static 'js/uiball.js' %}"></script>
+</body>
+</html>
