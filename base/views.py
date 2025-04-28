@@ -15,17 +15,14 @@ def login(request):
                 account = Account.objects.get(email=email)
                 from django.contrib.auth.hashers import check_password
                 if check_password(password, account.password):
-                    # Successful login
                     return redirect('home')
-                else:
-                    messages.error(request, 'Account does not exist.')
-                    return redirect('hero')
+                messages.error(request, 'Account does not exist.')
+                return redirect('hero')
             except Account.DoesNotExist:
                 messages.error(request, 'Account does not exist.')
                 return redirect('hero')
-        else:
-            messages.error(request, 'Please fill in all fields.')
-            return redirect('hero')
+        messages.error(request, 'Please fill in all fields.')
+        return redirect('hero')
     return redirect('hero')
 
 def register(request):

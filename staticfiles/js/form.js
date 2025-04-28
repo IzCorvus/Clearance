@@ -1,45 +1,55 @@
-const wrapper = document.querySelector('.wrapper');
-const loginLink = document.querySelector('.login-link');
-const registerLink = document.querySelector('.register-link');
-const btnPopup = document.querySelector('.btnLogin-popup');
-const iconClose = document.querySelector('.icon-close');
+const q = s => document.querySelector(s),
+      wrapper = q('.wrapper'),
+      mainContent = document.getElementById('main-content'),
+      modal = document.getElementById('terms-modal');
 
-registerLink.addEventListener('click', () => {
-    wrapper.classList.add('active');
-});
+// Message logic: showMessage function
+function showMessage(text, type = 'success') {
+  let messagesContainer = document.querySelector('.messages');
+  if (!messagesContainer) {
+    messagesContainer = document.createElement('div');
+    messagesContainer.className = 'messages';
+    document.body.prepend(messagesContainer);
+  }
+  const message = document.createElement('div');
+  message.className = `alert alert-${type}`;
+  message.innerHTML = `
+    <span>${text}</span>
+    
+    
+  `;
+  message.querySelector('.close-btn').onclick = function() {
+    message.remove();
+  };
+  setTimeout(() => {
+    message.remove();
+  }, 5000);
+  messagesContainer.appendChild(message);
+}
 
-loginLink.addEventListener('click', () => {
-    wrapper.classList.remove('active');
-});
-
-const mainContent = document.getElementById('main-content');
-
-btnPopup.addEventListener('click', () => {
-    wrapper.classList.add('active-popup');
-    if (mainContent) mainContent.style.display = 'none';
-});
-
-iconClose.addEventListener('click', () => {
-    wrapper.classList.remove('active-popup');
-    if (mainContent) mainContent.style.display = '';
-});
-
-const termsLink = document.getElementById('terms-link');
-  const modal = document.getElementById('terms-modal');
-  const closeModal = document.getElementById('close-modal');
-
-  termsLink.addEventListener('click', function(event) {
-    event.preventDefault();
-    modal.style.display = 'flex';
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.messages .alert .close-btn').forEach(btn => {
+    btn.onclick = function() {
+      btn.closest('.alert').remove();
+    };
   });
-
-  closeModal.addEventListener('click', function() {
-    modal.style.display = 'none';
-  });
-
-  // Optional: Close modal if clicking outside the content
-  window.addEventListener('click', function(event) {
-    if (event.target === modal) {
-      modal.style.display = 'none';
-    }
-  });
+  setTimeout(() => {
+    document.querySelectorAll('.messages .alert').forEach(msg => msg.remove());
+  }, 5000);
+});
+q('.register-link').onclick = () => wrapper.classList.add('active');
+q('.login-link').onclick = () => wrapper.classList.remove('active');
+q('.btnLogin-popup').onclick = () => {
+  wrapper.classList.add('active-popup');
+  if (mainContent) mainContent.style.display = 'none';
+};
+q('.icon-close').onclick = () => {
+  wrapper.classList.remove('active-popup');
+  if (mainContent) mainContent.style.display = '';
+};
+q('#terms-link').onclick = e => {
+  e.preventDefault();
+  modal.style.display = 'flex';
+};
+q('#close-modal').onclick = () => modal.style.display = 'none';
+window.onclick = e => e.target === modal && (modal.style.display = 'none');
